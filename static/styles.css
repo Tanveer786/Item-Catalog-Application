@@ -1,0 +1,29 @@
+@media only screen and (min-width : 992px) {
+  #categories {
+    border-right: 1px solid #BFBEBB;
+  }
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+a {
+  color: #007bff;
+}
+
+img {
+  border-radius: 50%;
+  width: 2em;
+}
+
+.navbar {
+  border-bottom: 1px solid #BFBEBB;
+}
+
+.navbar-brand {
+  padding: 1px;
+  font-size: 1.5em;
+}
+.content {
+}

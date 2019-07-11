@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="col m-3">
+    <form action="{{url_for('editItem', category_id=item.category_id,
+                    item_id=item.id)}}" method="post">
+      <p>Name:</p>
+      <input type="text" name="name" value="{{item.name}}">
+      <p>Description:</p>
+      <textarea rows="4" cols="50" name="description">{{item.description}}</textarea>
+      <p>Category:</p>
+      <select name="category">
+        {% for c in categories %}
+          <option value="{{c.name}}" {% if c.name == category.name %} selected
+                    {% endif %}>{{c.name}}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Submit">
+      <a href="{{url_for('viewItem', category_id=item.category_id,
+                item_id=item.id)}}">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

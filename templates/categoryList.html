@@ -1,0 +1,11 @@
+<div class="col-lg-3 m-3 no-gutter" id="categories">
+  <h3>Categories</h3>
+  <ul class="list-unstyled">
+    {% for category in categories %}
+
+    <li><a href="{{url_for('showItems', category_id=category.id)}}" >
+              {{category.name}}</a></li>
+
+    {% endfor %}
+  </ul>
+</div>

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% include "categoryList.html" %}
+  <div class="col-lg-8 m-3">
+    <h3>{{ category.name }}</h3>
+    <ul class="list-unstyled">
+      {% if 'username' in session %}
+      <li><a href="{{url_for('newItem')}}"> + Add New Item</a></li>
+      {% endif %}
+      {% if items|length < 1 %}
+      <p>Currently 0 Items</p>
+      {% else %}
+      {% for item in items %}
+      <li><a href="{{url_for('viewItem', category_id=item.category_id,
+                    item_id=item.id)}}">{{item.name}}</a></li>
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}

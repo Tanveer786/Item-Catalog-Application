@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block head %}
+  {{ super() }}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+  <script>
+    function start() {
+      gapi.load('auth2', function () {
+        auth2 = gapi.auth2.init({
+          client_id: '120442406508-478o5hk6uq6ak1kgaruu0fedislvnvq5.apps.googleusercontent.com',
+        });
+      });
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div class="col m-3">
+    <h4>Sign In using</h4>
+    <button class="m-2" id="signinButton">Google</button>
+    <div id="result"></div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+        $('#signinButton').click(function () {
+          function signInCallback(authResult) {
+            if (authResult['code']) {
+              // Hide the sign-in button now that the user is authorized
+              $('#signinButton').attr('style', 'display:none');
+              // Send the one-time-use code to the server, if the server
+              // responds, write a 'login successful' message to the web page
+              //and then redirect back to the main restaurants page
+              $.ajax({
+                type: 'POST',
+                url: '/gconnect?state={{STATE}}',
+                processData: false,
+                data: authResult['code'],
+                contentType: 'application/octet-stream; charset=utf-8',
+                success: function (result) {
+                  // Handle or verify the server response if necessary.
+                  if (result) {
+                    $('#result').html('Login Successful!</br>' + result + '</br>Redirecting...');
+                    setTimeout(function () {
+                      window.location.href = "/";
+                    }, 4000);
+                  } else if (authResult['error']) {
+                    console.log('There was an error: ' + authResult['error']);
+                  } else {
+                    $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                  }
+                }
+              });
+            }
+          }
+          auth2.grantOfflineAccess().then(signInCallback);
+        })
+  </script>
+{% endblock %}
