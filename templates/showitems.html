@@ -5,7 +5,9 @@
     <h3>{{ category.name }}</h3>
     <ul class="list-unstyled">
       {% if 'username' in session %}
-      <li><a href="{{url_for('newItem')}}"> + Add New Item</a></li>
+      <li><a href="{{url_for('newItem')}}">
+        <span class="oi oi-plus" title="Add" aria-hidden="true"> </span> Add New Item
+      </a></li>
       {% endif %}
       {% if items|length < 1 %}
       <p>Currently 0 Items</p>
